@@ -1,0 +1,30 @@
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and env
+*.log
+.env
+.env.*
+
+# Build/output
+build/
+dist/
+coverage/
+
+# Package managers (if added later)
+node_modules/
+venv/
+.venv/
+
+# Windsurf IDE
+.windsurf/
+.windsurf
+
+# Git
+.git-credentials
