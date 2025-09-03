@@ -36,7 +36,11 @@ if anyof (
   address :domain :is "From" "amazon.co.jp",
   address :domain :is "From" "paypal.com",
   address :domain :is "From" "stripe.com",
-  address :domain :is "From" "apple.com"
+  address :domain :is "From" "apple.com",
+  address :domain :is "From" "netflix.com",
+  address :domain :contains "From" "discord",
+  address :contains "From" "招商银行",
+  address :contains "From" "携程"
 ) {
   fileinto "Updates";
   stop;
@@ -62,6 +66,9 @@ if anyof (
   header :contains "List-Id" ["mailchimp", "sendgrid", "sparkpost", "hubspot", "marketo", "salesforce"],
   address :domain :is "From" "mailchimp.com",
   address :domain :is "From" "sendgrid.net",
+  address :contains "From" "mail-magazine",
+  address :contains "From" "okusurinavi.shop",
+  address :contains "From" "Lovable",
   address :domain :is "From" "sparkpostmail.com",
   address :domain :is "From" "hubspot.com",
   address :domain :is "From" "marketo.com"
