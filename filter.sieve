@@ -113,18 +113,56 @@ if anyof (
   stop;
 }
 
-# Promotions: typical marketing platforms and bulk markers
+# Promotions: marketing platforms, bulk email, and spam patterns
 if anyof (
-  header :contains "Precedence" ["bulk", "list", "junk"],
-  header :contains "List-Id" ["mailchimp", "sendgrid", "sparkpost", "hubspot", "marketo", "salesforce"],
+  # Bulk email headers
+  header :contains "Precedence" ["bulk", "list", "junk", "auto_reply"],
+  header :contains "Auto-Submitted" "auto-generated",
+  header :contains "X-Auto-Response-Suppress" "All",
+  header :contains "List-Unsubscribe" ["http://", "https://"],
+  
+  # Marketing platform headers
+  header :contains "List-Id" ["mailchimp", "sendgrid", "sparkpost", "hubspot", "marketo", "salesforce", "constantcontact", "campaignmonitor", "getresponse", "activecampaign", "convertkit", "aweber", "drip", "klaviyo"],
+  header :contains "X-Mailer" ["Mailchimp", "SendGrid", "HubSpot", "Marketo", "Salesforce", "Campaign Monitor"],
+  
+  # Marketing platform domains
   address :domain :is "From" "mailchimp.com",
   address :domain :is "From" "sendgrid.net",
-  address :contains "From" "mail-magazine",
-  address :contains "From" "okusurinavi.shop",
-  address :contains "From" "Lovable",
   address :domain :is "From" "sparkpostmail.com",
   address :domain :is "From" "hubspot.com",
-  address :domain :is "From" "marketo.com"
+  address :domain :is "From" "marketo.com",
+  address :domain :is "From" "salesforce.com",
+  address :domain :is "From" "constantcontact.com",
+  address :domain :is "From" "campaignmonitor.com",
+  address :domain :is "From" "getresponse.com",
+  address :domain :is "From" "activecampaign.com",
+  address :domain :is "From" "convertkit.com",
+  address :domain :is "From" "aweber.com",
+  address :domain :is "From" "drip.com",
+  address :domain :is "From" "klaviyo.com",
+  
+  # Common spam/marketing patterns
+  address :contains "From" "mail-magazine",
+  address :contains "From" "newsletter",
+  address :contains "From" "promo",
+  address :contains "From" "offer",
+  address :contains "From" "deal",
+  address :contains "From" "discount",
+  address :contains "From" "sale",
+  
+  # Specific spam domains
+  address :contains "From" "okusurinavi.shop",
+  address :contains "From" "Lovable",
+  
+  # Chinese spam/marketing domains
+  address :contains "From" "推广",
+  address :contains "From" "促销",
+  address :contains "From" "优惠",
+  address :contains "From" "打折",
+  address :contains "From" "特价",
+  address :contains "From" "营销",
+  address :contains "From" "广告",
+  address :contains "Subject" ["促销", "优惠", "特价", "打折", "限时"]
 ) {
   fileinto "Trash";
   stop;
